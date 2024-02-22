@@ -7,6 +7,7 @@ This contains code for data analysis for research on gene flow among PNW marmot 
   - [Installing Phyluce](#installing-phyluce)
   - [Calling snps](#Calling-snps)
     - [Choose reference individual](#Choose-reference-individual)
+    - [BWA mapping](#BWA-mapping)
 ## Ultraconserved Element Processing
 ### Installing Phyluce
 The first step of this project is to install phyluce wherever you are using it. 
@@ -36,11 +37,27 @@ Run phyluce program to create a list of all loci present in the reference indivi
 ```
 phyluce_assembly_get_match_counts \
 --locus-db path-to/4_uce-search-results/probe.matches.sqlite \
---taxon-list-config path-to/ref.conf \
+--taxon-list-config path-to-working-directory/snp_calling/ref.conf \
 --taxon-group ref \
 --output path-to-working-directory/snp_calling/ref-ONLY.conf
 ```
 Then run phyluce to create a fasta file of loci present in the reference individual
 ```
 phyluce_assembly_get_fastas_from_match_counts \
---contigs path-to-working-directory/
+--contigs path-to/3_spades-assemblies/contigs \
+--locus-db path-to/4_uce-search-results/probe.matches.sqlite \
+--match-count-output path-to-working-directory/snp_calling/ref-ONLY.conf \
+--output path-to-working-directory/snp-calling/ref-ONLY.fasta
+```
+
+Copy clean reads to a new directory so that you don't accidentally mess them up !!!
+```
+cp path-to/2_clean-fastq path-to-working-directory/snp-calling/2_clean-fastq
+```
+## BWA mapping
+Run the BWA mapping loop on all files, source = https://github.com/zarzamora23/SNPs_from_UCEs/blob/master/1a_0_bwa_mapping_loop.sh
+My Script : [1_bwa_mapping_loop.sh](1_bwa_mapping_loop.sh)
+
+Software needed for this: 
+[bwa](https://github.com/lh3/bwa)
+
