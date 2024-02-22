@@ -25,4 +25,22 @@ Original bash scripts from paper can be found here: https://github.com/zarzamora
 
 ## Choose reference individual 
 First step is to choose an individual with the most contigs to use as the reference individual for calling snps. 
+I chose Marmota monax as the reference individual from the entire UCE dataset. 
 
+Create a config file named ref.conf
+```
+[ref]
+Name_of_reference_individual
+```
+Run phyluce program to create a list of all loci present in the reference individual
+```
+phyluce_assembly_get_match_counts \
+--locus-db path-to/4_uce-search-results/probe.matches.sqlite \
+--taxon-list-config path-to/ref.conf \
+--taxon-group ref \
+--output path-to-working-directory/snp_calling/ref-ONLY.conf
+```
+Then run phyluce to create a fasta file of loci present in the reference individual
+```
+phyluce_assembly_get_fastas_from_match_counts \
+--contigs path-to-working-directory/
