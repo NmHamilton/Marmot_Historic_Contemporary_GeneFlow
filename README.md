@@ -169,3 +169,4 @@ The input is a vcf file from calling SNPs that is further filtered to reflect on
 vcftools --vcf genotyped_X_samples_only_PASS_snp_5th.vcf --min-alleles 2 --max-alleles 2 --thin 1000 --max-missing 0.75 --max-non-ref-af 0.99 --recode --out Marmot_filtered_vcf75p.vcf
 ```
 We also need a 'map file that matches each specimen to a putative species. If you want to include an outgroup, must be labeled "outgroup"
+[Example file](Scripts/Files/Sets.txt)
