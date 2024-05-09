@@ -11,6 +11,8 @@ This contains code for data analysis for research on gene flow among PNW marmot 
     - [Indel realigner](#Indel-realigner)
     - [Genotype recall](#Genotype-recall)
   - [PhyloNetworks](#PhyloNetworks)
+    - [IQTREES](#IQTREES)
+    - [SNAQ](#SNAQ)
 ## Ultraconserved Element Processing
 ### Installing Phyluce
 The first step of this project is to install phyluce wherever you are using it. 
@@ -79,5 +81,66 @@ Change thresholds and filters as needed.
 
 ## PhyloNetworks
 As input data into SNAQ, I used gene trees for each locus, estimated with IQTREE. I used the 75% complete UCE dataset, which included only those loci that were present in at least 75% of individuals. 
+## IQTREES
+Loop for making gene trees, using the phyluce IQTREE software
+```
+#!bin/bash
+for file in *.nexus; do
+    if [[ -e "${file%.nexus}.contree" ]]; then
+        echo "$file done"
+    else
+        iqtree -s "$file" -bb 1000 -m GTR -nt 4
+    fi
+done
+```
+As input for SNAQ, you will want to concatenate the gene trees and use a guide tree which you can make from ASTRAL or iqtree of 75% matrix.
+```
+cat *.contree > Marmot_genetrees.tre
+```
+
+## SNAQ
+To install SNAQ after being in the Julia environment
+```
+using Pkg
+Pkg.add("PhyloNetworks")
+Pkg.add("PhyloPlots")
+```
+To add trees to environment and summarize them by quartets
+```
+using PhyloNetworks, PhyloPlots
+genetrees = readMultiTopology("Marmot_genetrees.tre")
+speciestree = readTopologyLevel1("IQTREE-75p.contree")
+q,t = countquartetsintrees(genetrees);
+df = writeTableCF(q,t)
+using CSV
+CSV.write("tableCF.csv", df); 
+```
+
+Then you can run different scenarios, allowing different amounts of hybridization
+The first, hnet=0 can be a starting network to see if the topology is the same as the topology you got from IQTREE
+
+```
+iqtreeCF = readTableCF("tableCF.csv")
+net0 = snaq!(speciestree, iqtreeCF, hmax=0, filename="marmot.net0", seed=1234)
+```
+You can choose ot use the output from other runs as input into later SNAQ runs, an example of using the net0 as net1 input, you can use net1 as net2 input and so forth
+```
+net1 = snaq!(net0, iqtreeCF, hmax=1, filename="marmot.net1", seed=1235)
+```
+To visualize the networks, you can read in the results and use PhyloPlots and RCall
+I like to root the tree on the outgroup to make visualization easier
+```
+using PhyloPlots, RCall
+net2=readMultiTopology("Marmot.net2.networks")
+net2rooted= rootatnode!(net2[1], "FLV_UAM112562")
+R"pdf"("Marmot_Hybrid2.pdf")
+plot(net2rooted, shownodenumber=true)
+R"dev.off()"
+```
+
+
+
+
+
 
 
