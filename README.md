@@ -13,6 +13,7 @@ This contains code for data analysis for research on gene flow among PNW marmot 
   - [PhyloNetworks](#PhyloNetworks)
     - [IQTREES](#IQTREES)
     - [SNAQ](#SNAQ)
+  - [Dsuite](#Dsuite)
 ## Ultraconserved Element Processing
 ### Installing Phyluce
 The first step of this project is to install phyluce wherever you are using it. 
@@ -137,10 +138,34 @@ R"pdf"("Marmot_Hybrid2.pdf")
 plot(net2rooted, shownodenumber=true)
 R"dev.off()"
 ```
+As you can see here, the lines overlap the tree, so we can rotate the nodes to make this less messy 
 
+<img width="554" alt="Screen Shot 2024-05-09 at 1 38 03 PM" src="https://github.com/NmHamilton/Marmot_Historic_Contemporary_GeneFlow/assets/29608081/41c3120c-f0ba-4116-8a2d-963907c30f33">
 
+```
+rotate!(net2rooted, 17)
+rotate!(net2rooted, 14)
+rotate!(net2rooted, 18)
+rotate!(net2rooted, 19)
+```
 
+![Screen Shot 2024-05-09 at 2 31 37 PM](https://github.com/NmHamilton/Marmot_Historic_Contemporary_GeneFlow/assets/29608081/0b79df72-6148-445e-ad74-948a8b8ba697)
 
+Okay now this looks better, and we can put the gamma information. 
+```
+R"pdf"("Marmot_net2_rotated.pdf")
+plot(net2rooted, showgamma=true);
+R"dev.off()"
+```
+![Screen Shot 2024-05-09 at 2 33 33 PM](https://github.com/NmHamilton/Marmot_Historic_Contemporary_GeneFlow/assets/29608081/2d4492c9-f6e1-467b-97b6-5f61c5a5fed8)
 
+I edited the final image in illustrator because futzing around with the settings in R/Julia was more annoying. 
+![Screen Shot 2024-05-09 at 2 36 36 PM](https://github.com/NmHamilton/Marmot_Historic_Contemporary_GeneFlow/assets/29608081/b540e641-1094-4c64-b689-4d2f6f0a5b9e)
 
-
+## Dsuite
+Dsuite uses ABBA-BABA statistics to infer ancestral gene flow. 
+The input is a vcf file from calling SNPs that is further filtered to reflect one biallelic SNP per locus. 
+```
+vcftools --vcf genotyped_X_samples_only_PASS_snp_5th.vcf --min-alleles 2 --max-alleles 2 --thin 1000 --max-missing 0.75 --max-non-ref-af 0.99 --recode --out Marmot_filtered_vcf75p.vcf
+```
+We also need a 'map file that matches each specimen to a putative species. If you want to include an outgroup, must be labeled "outgroup"
