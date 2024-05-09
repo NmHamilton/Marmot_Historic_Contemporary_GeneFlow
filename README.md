@@ -56,7 +56,7 @@ cp path-to/2_clean-fastq path-to-working-directory/snp-calling/2_clean-fastq
 ```
 ## BWA mapping
 Run the BWA mapping loop on all files, source = https://github.com/zarzamora23/SNPs_from_UCEs/blob/master/1a_0_bwa_mapping_loop.sh
-My Script : [1_bwa_mapping_loop.sh](1_bwa_mapping_loop.sh)
+My Script : [1_bwa_mapping_loop.sh](Scripts/1_bwa_mapping_loop.sh)
 
 Software needed for this: 
 [bwa](https://github.com/lh3/bwa)
