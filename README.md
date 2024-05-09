@@ -8,6 +8,9 @@ This contains code for data analysis for research on gene flow among PNW marmot 
   - [Calling snps](#Calling-snps)
     - [Choose reference individual](#Choose-reference-individual)
     - [BWA mapping](#BWA-mapping)
+    - [Indel realigner](#Indel-realigner)
+    - [Genotype recall](#Genotype-recall)
+  - [PhyloNetworks](#PhyloNetworks)
 ## Ultraconserved Element Processing
 ### Installing Phyluce
 The first step of this project is to install phyluce wherever you are using it. 
@@ -60,4 +63,21 @@ My Script : [1_bwa_mapping_loop.sh](Scripts/1_bwa_mapping_loop.sh)
 
 Software needed for this: 
 [bwa](https://github.com/lh3/bwa)
+
+## Indel realigner
+Run the indel realigner script, source = https://github.com/zarzamora23/SNPs_from_UCEs/blob/master/2_indelrealigner-WLET_copy.sh
+My Script : [2_indelrealigner.sh](Scripts/2_indelrealigner.sh)
+
+You will need to use GATK 3.8.1.0
+
+## Genotype recall
+Run the genotype recall script, source = https://github.com/zarzamora23/SNPs_from_UCEs/blob/master/3_genotype-recal-WLET_copy.sh
+My Script: [3_Genotype_recall.sh](Scripts/3_Genotype_recall.sh)
+
+You will need to use GATK 3.46
+Change thresholds and filters as needed. 
+
+## PhyloNetworks
+As input data into SNAQ, I used gene trees for each locus, estimated with IQTREE. I used the 75% complete UCE dataset, which included only those loci that were present in at least 75% of individuals. 
+
 
