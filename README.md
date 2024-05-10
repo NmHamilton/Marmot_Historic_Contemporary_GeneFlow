@@ -169,4 +169,21 @@ The input is a vcf file from calling SNPs that is further filtered to reflect on
 vcftools --vcf genotyped_X_samples_only_PASS_snp_5th.vcf --min-alleles 2 --max-alleles 2 --thin 1000 --max-missing 0.75 --max-non-ref-af 0.99 --recode --out Marmot_filtered_vcf75p.vcf
 ```
 We also need a 'map file that matches each specimen to a putative species. If you want to include an outgroup, must be labeled "outgroup"
+You can also exclude individuals from the analysis by replacing the species name with "xxx" 
 [Example file](Scripts/Files/Sets.txt)
+
+To do fbranch stats, you'll need a species tree, which must be rooted using the Outgroup. 
+```
+Dsuite Dtrios -t Species.tre Marmot_filtered_vcf75p.vcf Sets.txt
+```
+
+With the output file Sets_tree.txt, you can run fbranch 
+```
+Dsuite Fbranch Species.tree Sets_tree.txt > Marmot_Fbranch.txt
+```
+This can be plotted with the python scripts that are included with a Dsuite installation
+```
+python dtools.py Marmot_Fbranch.txt
+```
+
+![Screen Shot 2024-05-10 at 8 50 36 AM](https://github.com/NmHamilton/Marmot_Historic_Contemporary_GeneFlow/assets/29608081/c35f0b4f-6bfb-4b03-a9ef-96e85bba3426)
