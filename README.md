@@ -185,5 +185,6 @@ This can be plotted with the python scripts that are included with a Dsuite inst
 ```
 python dtools.py Marmot_Fbranch.txt
 ```
+This will give you a figure similar to the one below (colors to branches added later in Illustrator, but Dsuite plotting will give you the tree and the heat map)
 
 ![Screen Shot 2024-05-10 at 8 50 36 AM](https://github.com/NmHamilton/Marmot_Historic_Contemporary_GeneFlow/assets/29608081/c35f0b4f-6bfb-4b03-a9ef-96e85bba3426)
