@@ -145,7 +145,7 @@ for file in *.nexus; do
     if [[ -e "${file%.nexus}.contree" ]]; then
         echo "$file done"
     else
-        iqtree -s "$file" -bb 1000 -m GTR -nt 4
+        iqtree -s "$file" -bb 1000 -m MFP -nt 4
     fi
 done
 ```
