@@ -7,6 +7,7 @@ This contains code for data analysis for research on gene flow among PNW marmot 
   - [Installing Phyluce](#installing-phyluce)
   - [Calling snps](#Calling-snps)
     - [Choose reference individual](#Choose-reference-individual)
+    - [Consensus reference](#Consenus-reference)
     - [BWA mapping](#BWA-mapping)
     - [Indel realigner](#Indel-realigner)
     - [Genotype recall](#Genotype-recall)
@@ -60,6 +61,11 @@ Copy clean reads to a new directory so that you don't accidentally mess them up 
 ```
 cp path-to/2_clean-fastq path-to-working-directory/snp-calling/2_clean-fastq
 ```
+
+## Consensus reference
+An alternative reference that can be chosen is making a consensus for each present UCE, potentially capturing some loci that are in 75% of individuals, but not in the reference individual.
+From Drs. Sharon Jansa and Keith Barker
+
 ## BWA mapping
 Run the BWA mapping loop on all files, source = https://github.com/zarzamora23/SNPs_from_UCEs/blob/master/1a_0_bwa_mapping_loop.sh
 My Script : [1_bwa_mapping_loop.sh](Scripts/1_bwa_mapping_loop.sh)
