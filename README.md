@@ -63,9 +63,58 @@ cp path-to/2_clean-fastq path-to-working-directory/snp-calling/2_clean-fastq
 ```
 
 ## Consensus reference
-An alternative reference that can be chosen is making a consensus for each present UCE, potentially capturing some loci that are in 75% of individuals, but not in the reference individual.
-From Drs. Sharon Jansa and Keith Barker
+An alternative reference that can be chosen is making a consensus for each present UCE, 
+potentially capturing some loci that are in 75% of individuals, but not in the reference individual. The intention is that this will give the longest sequence and indivdiual bad alignments will be discounted in the majority-rule consensus
+Created by Drs. Sharon Jansa and Keith Barker
 
+Within R, install and load the necessary packages
+```
+install.packages("ape")
+install.packages("seqinr")
+library(ape)
+library(seqinr)
+```
+
+Then run this code to convert aligned nexus files to fasta files
+```
+to.convert<-system("ls uce*.nexus", intern=T)
+fasta.names<-sub(".nexus", ".fa", to.convert)
+for(i in 1:length(to.convert)){
+x<-read.nexus.data(to.convert[i])
+x2<-nexus2DNAbin(x)
+write.dna(x2, fasta.names[i], format="fasta")
+print(paste("Finished", fasta.names[i]))
+```
+Get a list of all the fasta files and create new filenames
+```
+to.summarize<-system("ls uce*.fa", intern=T)
+consensus.names<-sub(".fa", ".con", to.summarize)
+#intialize a matrix for summary data
+alignment.summary<-data.frame(ntaxa=NA, ncols=NA, percent.complete=NA)
+#summarize across alignments
+for(j in 1:length(to.summarize)){
+y<-read.alignment(to.summarize[j], format="fasta")
+y.tax<-y$nb
+y.ncols<-nchar(y$seq[[1]])
+y.collapsed<-paste(unlist(y$seq), collapse="")
+y.collapsed.cleaned<-gsub(" ", "", y.collapsed)
+y.complete<-nchar(gsub("-
+","",y.collapsed.cleaned))/nchar(y.collapsed.cleaned)
+alignment.summary[j,]<-c(y.tax, y.ncols, y.complete)
+y.con<-consensus(y, method="majority", type="DNA")
+y.con<-y.con[y.con%in%c("-", " ")==F]
+write(paste0(y.con, collapse=""), consensus.names[j])
+print(paste("Finished", consensus.names[j]))
+}
+```
+Exit R and concatenate consensuse into a single fasta file to be used in replace of doing all the do with the reference individual in the previous section
+```
+for i in 'ls *.con'
+do
+echo ">${i/\.con/}" >> consensus.fa
+cat $i >> consensus.fa
+done
+```
 ## BWA mapping
 Run the BWA mapping loop on all files, source = https://github.com/zarzamora23/SNPs_from_UCEs/blob/master/1a_0_bwa_mapping_loop.sh
 My Script : [1_bwa_mapping_loop.sh](Scripts/1_bwa_mapping_loop.sh)
