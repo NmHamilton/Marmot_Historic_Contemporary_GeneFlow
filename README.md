@@ -15,6 +15,7 @@ This contains code for data analysis for research on gene flow among PNW marmot 
     - [IQTREES](#IQTREES)
     - [SNAQ](#SNAQ)
   - [Dsuite](#Dsuite)
+  - [Circuitscape](#Circuitscape)
 ## Ultraconserved Element Processing
 ### Installing Phyluce
 The first step of this project is to install phyluce wherever you are using it. 
@@ -243,3 +244,75 @@ python dtools.py Marmot_Fbranch.txt
 This will give you a figure similar to the one below (colors to branches added later in Illustrator, but Dsuite plotting will give you the tree and the heat map)
 
 ![Screen Shot 2024-05-10 at 8 50 36 AM](https://github.com/NmHamilton/Marmot_Historic_Contemporary_GeneFlow/assets/29608081/c35f0b4f-6bfb-4b03-a9ef-96e85bba3426)
+
+## Circuitscape
+Circuitscape is intended to be run with the results of the ResistanceGA resistance surface optimization. 
+The way I have it, Circuitscape is run within Julia. 
+```
+using Circuitscape
+```
+I could never get it to run with the compute(".ini") file. 
+```
+Step 1: Choose Data Type
+ > raster
+   network
+Step 2: Choose Modelling Mode
+   PREVIOUS STEP
+ > pairwise
+   advanced
+   one-to-all
+   all-to-one
+
+Step 3a: Enter path to habitat file
+   PREVIOUS STEP
+ > Enter path manually
+   Use filepicker
+
+Is this a resistance or conductance file?
+   PREVIOUS STEP
+ > resistance
+   conductance
+
+Step 4: Enter path to focal nodes:
+   PREVIOUS STEP
+ > Enter path manually
+   Use filepicker
+
+Step 5: Choose solver
+   PREVIOUS STEP
+ > cg+amg
+   cholmod
+
+Step 6: Choose number of parallel processes
+ > 1
+   2
+   3
+   4
+   5
+   6
+   7
+   8
+   9
+v  10
+
+Step 7: Choose outputs
+   PREVIOUS STEP
+ > Pick outputs
+[press: Enter=toggle, a=all, n=none, d=done, q=abort]
+ > [X] Current maps
+   [X] Voltage maps
+
+Step 8: Choose output file name
+   PREVIOUS STEP
+ > Enter output file name
+
+Step 9: Choose output folder
+   PREVIOUS STEP
+ > Enter path manually
+   Use folderpicker
+
+Step 10: Would you like to run Circuitscape?
+ > Yes
+   Later
+```
+Example input files can be found in Files
