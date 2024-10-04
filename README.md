@@ -127,13 +127,13 @@ Software needed for this:
 Run the indel realigner script, source = https://github.com/zarzamora23/SNPs_from_UCEs/blob/master/2_indelrealigner-WLET_copy.sh
 My Script : [2_indelrealigner.sh](Scripts/2_indelrealigner.sh)
 
-You will need to use GATK 3.8.1.0
+You will need to use [GATK 3.8.1.0](https://console.cloud.google.com/storage/browser/_details/gatk-software/package-archive/gatk/GenomeAnalysisTK-3.8-1-0-gf15c1c3ef.tar.bz2)
 
 ## Genotype recall
 Run the genotype recall script, source = https://github.com/zarzamora23/SNPs_from_UCEs/blob/master/3_genotype-recal-WLET_copy.sh
 My Script: [3_Genotype_recall.sh](Scripts/3_Genotype_recall.sh)
 
-You will need to use GATK 3.46
+You will need to use [GATK 3.46](https://console.cloud.google.com/storage/browser/_details/gatk-software/package-archive/gatk/GenomeAnalysisTK-3.4-46-gbc02625.tar.bz2)
 Change thresholds and filters as needed. 
 
 ## PhyloNetworks
