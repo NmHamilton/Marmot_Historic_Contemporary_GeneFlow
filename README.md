@@ -239,7 +239,7 @@ Dsuite Fbranch Species.tree Sets_tree.txt > Marmot_Fbranch.txt
 ```
 This can be plotted with the python scripts that are included with a Dsuite installation
 ```
-python dtools.py Marmot_Fbranch.txt
+python dtools.py Marmot_Fbranch.txt Species.tree
 ```
 This will give you a figure similar to the one below (colors to branches added later in Illustrator, but Dsuite plotting will give you the tree and the heat map)
 
