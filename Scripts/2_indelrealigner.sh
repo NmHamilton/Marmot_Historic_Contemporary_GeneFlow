@@ -26,7 +26,7 @@ do
     echo $REALIGNED_NAME
 #execute the command in GATK to create intervals and realign reads
    
-   eval $(echo "java -Xmx4g -jar /user/GenomeAnalysisTK-3.8-1-0/GenomeAnalysisTK.jar -T RealignerTargetCreator -R $REFERENCE -o $INTERVALS_NAME -I $sample --minReadsAtLocus 10")
-   eval $(echo "java -Xmx4g -jar /user/GenomeAnalysisTK-3.8-1-0/GenomeAnalysisTK.jar -T IndelRealigner -R $REFERENCE -I $sample -targetIntervals $INTERVALS_NAME  -o $REALIGNED_NAME -LOD 3.0")
+   eval $(echo "java -Xmx4g -jar /user/GenomeAnalysisTK-3.4-46/GenomeAnalysisTK.jar -T RealignerTargetCreator -R $REFERENCE -o $INTERVALS_NAME -I $sample --minReadsAtLocus 10")
+   eval $(echo "java -Xmx4g -jar /user/GenomeAnalysisTK-3.4-46/GenomeAnalysisTK.jar -T IndelRealigner -R $REFERENCE -I $sample -targetIntervals $INTERVALS_NAME  -o $REALIGNED_NAME -LOD 3.0")
     
 done
