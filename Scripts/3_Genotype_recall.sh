@@ -209,7 +209,7 @@ do
    #mv $RECAL2_NAME'.idx' ${RECAL2_NAME//_recal_2recal/_2recal}'.idx'
 done
 
-
+ls -d -1 $PWD/*_2recal.g.vcf > recal2_vcf.list
 
 java -Xmx4g -jar /user/GenomeAnalysisTK-3.46/GenomeAnalysisTK.jar  -R $REFERENCE -T GenotypeGVCFs \
 --standard_min_confidence_threshold_for_calling 40.0 --standard_min_confidence_threshold_for_emitting 40.0 \
